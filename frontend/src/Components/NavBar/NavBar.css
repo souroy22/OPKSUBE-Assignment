@@ -1,0 +1,32 @@
+.nav-bar {
+  height: 70px;
+  width: 100vw;
+  background-color: aquamarine;
+  display: flex;
+  justify-content: space-between;
+  padding: 27px 30px;
+  padding-left: 70px;
+}
+
+.left-side{
+    width: 30%;
+    /* background-color: brown; */
+    text-align: start;
+}
+
+.left-side img{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.mid-side{
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+    text-align: end;
+}
+
+.right-side{
+    width: 10%;
+}
