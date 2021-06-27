@@ -8,37 +8,69 @@ import { getPurchesList } from "./../API/UserAPI";
 const Profile = () => {
   const { user, token } = isAuthenticated();
   const [purchesList, setPurchesList] = useState([]);
-  //   const data = useSelector((state) => state.authReducer);
-  //   console.log(data);
+
   useEffect(async () => {
     const data = await getPurchesList(user._id, token);
     setPurchesList(data.purchases);
   }, []);
+  console.log(purchesList);
   return (
     <Base>
       <div>
-        <h1>Name: {user.name}</h1>
-        <h1>Email: {user.email}</h1>
-        <h3>-------Your Previous Order--------</h3>
-        {purchesList.length > 0 &&
+        <h1>
+          <span style={{ color: "gold" }}>Name: </span>
+          {user.name}
+        </h1>
+        <h1>
+          <span style={{ color: "gold" }}>Email: </span>
+          {user.email}
+        </h1>
+        <h3>
+          <span style={{ color: "green" }}>
+            -------Your Previous Order--------
+          </span>
+        </h3>
+        {purchesList.length > 0 ? (
           purchesList.map((order) => {
             return (
               <div
-                key={order._id}
+                key={order.bookData._id}
                 style={{
                   boxShadow: "0 0 10px gray",
                   margin: "30px",
-                  width: "400px",
+
                   textAlign: "center",
                   padding: "10px",
                 }}
               >
-                <h1>{order.name}</h1>
-                <h1>{order.price}</h1>
-                <h1>{order.description}</h1>
+                <div>
+                  <h1>
+                    <span style={{ color: "navy" }}>Order Book Name: </span>
+                    {order.bookData.name}
+                  </h1>
+                  <h1>
+                    <span style={{ color: "navy" }}>Order Book Price: </span>₹
+                    {order.bookData.price}
+                  </h1>
+                </div>
+                <div>
+                  <h1>
+                    <span style={{ color: "navy" }}>
+                      Order Book Contact No:{" "}
+                    </span>
+                    {order.userDetails.mobileNo}
+                  </h1>
+                  <h1>
+                    <span style={{ color: "navy" }}>Order Book Address: </span>
+                    {order.userDetails.address}
+                  </h1>
+                </div>
               </div>
             );
-          })}
+          })
+        ) : (
+          <h2 style={{ color: "gray" }}>No Previous Order!</h2>
+        )}
       </div>
     </Base>
   );

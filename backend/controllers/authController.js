@@ -25,7 +25,7 @@ const authController = {
     } catch (err) {
       console.log(`Error while signup and message is ${err.message}`);
       return res
-        .status(400)
+        .status(500)
         .json({ error: `Error while signup ${err.message}` });
     }
   },

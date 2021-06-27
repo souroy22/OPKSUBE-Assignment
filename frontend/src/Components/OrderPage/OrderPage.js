@@ -9,26 +9,29 @@ const OrderPage = () => {
   const bookData = useSelector((state) => state.OrderReduer);
   const userData = useSelector((state) => state.authReducer);
   const { user, token } = isAuthenticated();
-  const [userDetails, setUserDetails] = useState({
-    name: user.name,
-    email: user.email,
-    mobileNo: "",
-    address: "",
-  });
+
+  const nameField = useRef();
+  const emailField = useRef();
+  const mobileNoField = useRef();
+  const addressField = useRef();
   const makeAOrder = () => {
     const bookId = bookData._id;
     const id = user._id;
+    const name = nameField.current.value;
+    const email = emailField.current.value;
+    const mobileNo = mobileNoField.current.value;
+    const address = addressField.current.value;
+    const userDetails = { name, email, mobileNo, address };
     const data = { userDetails, bookData };
-    console.log(bookId, id, token, data);
+    console.log(userDetails);
     createAOrder(bookId, id, token, data)
       .then((data) => {})
       .catch(console.log("signin request failed"));
-    alert("Successfully Ordered")
-  };
-
-  const onChange = (name) => (event) => {
-    const value = event.target.value;
-    setUserDetails({ ...userDetails, [name]: value });
+    nameField.current.value = "";
+    emailField.current.value = "";
+    mobileNoField.current.value = "";
+    addressField.current.value = "";
+    alert("Successfully Ordered");
   };
 
   return (
@@ -40,30 +43,14 @@ const OrderPage = () => {
         <h3>Book Name: {bookData.description}</h3>
       </div>
       <div className="order-container">
-        <input
-          placeholder="Enter Name"
-          className="inpt"
-          onChange={() => onChange("name")}
-          value={userDetails.name}
-        />
-        <input
-          placeholder="Email"
-          className="inpt"
-          onChange={() => onChange("email")}
-          value={userDetails.email}
-        />
+        <input placeholder="Enter Name" className="inpt" ref={nameField} />
+        <input placeholder="Email" className="inpt" ref={emailField} />
         <input
           placeholder="Enter Mobile Number"
-          onChange={() => onChange("mobileNo")}
-          
+          ref={mobileNoField}
           className="inpt"
         />
-        <input
-          placeholder="Address"
-          className="inpt"
-          onChange={() => onChange("address")}
-          
-        />
+        <input placeholder="Address" className="inpt" ref={addressField} />
         <button
           className="btn btn-success"
           style={{ marginTop: "40px" }}

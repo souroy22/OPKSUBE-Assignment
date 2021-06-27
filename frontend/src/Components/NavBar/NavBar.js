@@ -5,7 +5,6 @@ import { signout, authenticate, isAuthenticated } from "../../API/Auth";
 import { searchData } from "../../Redux_State/Actions";
 import { useDispatch } from "react-redux";
 
-
 const NavBar = () => {
   const [redirect, setRedirect] = useState(false);
   const dispatch = useDispatch();
@@ -15,11 +14,11 @@ const NavBar = () => {
       return <Redirect to="/" />;
     }
   };
-  const inptField = useRef()
+  const inptField = useRef();
   const searchForData = () => {
     const data = inptField.current.value;
     dispatch(searchData(data));
-  }
+  };
   return (
     <div className="nav-bar">
       <Link to="/" className="left-side">
@@ -32,19 +31,45 @@ const NavBar = () => {
       <div className="mid-side">
         {!isAuthenticated() && (
           <>
-            <Link to="/signin">SignIn</Link>
-            <Link to="/signup">SignUp</Link>
+            <Link to="/signin" className="nav-option">
+              SignIn
+            </Link>
+            <Link to="/signup" className="nav-option">
+              SignUp
+            </Link>
           </>
         )}
-        {isAuthenticated() && <Link to="/profile">Profile</Link>}
+        {isAuthenticated() && (
+          <Link to="/profile" className="nav-option">
+            Profile
+          </Link>
+        )}
         <div>
-          <input placeholder="Search" ref={inptField} />
-          <button className="btn btn-primary" style={{width: "100px"}} onClick={() => searchForData()}>Search</button>
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              ref={inptField}
+              className="form-control"
+              placeholder="search..."
+              aria-label="Recipient's username"
+              aria-describedby="button-addon2"
+              style={{ width: "300px" }}
+            />
+            <button
+              className="btn btn-outline-primary"
+              type="button"
+              id="button-addon2"
+              style={{ width: "100px" }}
+              onClick={() => searchForData()}
+            >
+              Search
+            </button>
+          </div>
         </div>
       </div>
       {isAuthenticated() && (
         <div
-          className="right-side"
+          className="right-side nav-option"
           onClick={() =>
             signout(() => {
               setRedirect(true);

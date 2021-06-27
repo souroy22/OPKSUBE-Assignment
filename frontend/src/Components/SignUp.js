@@ -20,16 +20,14 @@ const SignUp = () => {
     signup({ name, email, password })
       .then((data) => {
         console.log(data);
-        authenticate(data, () => {
-          setRedirect(true);
-        });
+        setRedirect(true);
       })
       .catch(console.log("Signup request failed"));
   };
 
   const performRedirect = () => {
     if (redirect) {
-      return <Redirect to="/" />;
+      return <Redirect to="/signin" />;
     }
     if (isAuthenticated()) {
       return <Redirect to="/" />;
@@ -45,12 +43,12 @@ const SignUp = () => {
             <label>Enter Name</label>
           </div>
           <div className="input-container">
-            <input type="email" required />
+            <input type="email" required ref={emailField} />
             <div className="underline"></div>
             <label>Enter Email</label>
           </div>
           <div className="input-container">
-            <input type="password" required />
+            <input type="password" required ref={passwordField} />
             <div className="underline"></div>
             <label>Enter Password</label>
           </div>

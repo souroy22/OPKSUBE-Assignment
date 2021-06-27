@@ -80,7 +80,7 @@ const bookController = {
       );
       await User.findByIdAndUpdate(
         id,
-        { $push: { purchases: book } },
+        { $push: { purchases: req.body } },
         { new: true, useFindAndModify: false }
       );
       return res.status(200).json({ msg: "Ordered successfull", user });

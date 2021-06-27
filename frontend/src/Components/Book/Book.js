@@ -9,7 +9,7 @@ const Book = ({ data }) => {
   return (
     <div className="book-card">
       <h1>{data.name}</h1>
-      <h1>{data.price}</h1>
+      <h1>₹{data.price}</h1>
       <h1>{data.description}</h1>
       <Link
         to="/create/order"
