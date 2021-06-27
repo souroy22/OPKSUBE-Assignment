@@ -18,3 +18,17 @@ export const getOrderData = (data) => {
         data,
       };
 }
+
+export const searchData = (val) => {
+  return {
+    type: "FIND_BOOK",
+    val
+  }
+}
+
+export const loadFilteredData = (data) => {
+  return {
+    type: "LOAD_FILTERED_DATA",
+    data,
+  };
+}

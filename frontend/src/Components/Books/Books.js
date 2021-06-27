@@ -4,9 +4,9 @@ import "./Books.css";
 import { useSelector } from "react-redux";
 
 const Books = () => {
-  const [books, setBooks] = useState([]);
-  const data = useSelector((state) => state.BookReduer);
-  // console.log(data);
+  
+  const data = useSelector((state) => state.FilteredBookReduer);
+  console.log(data);
   return (
     <div className="books-conainer">
       {data && data.map((book) => (

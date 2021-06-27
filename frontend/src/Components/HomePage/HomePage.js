@@ -4,18 +4,19 @@ import { useState, useEffect } from "react";
 import { fetchAllBooks } from "../../API/Book";
 import Base from "./../Base";
 import { useDispatch } from "react-redux";
-import { loadData } from "../../Redux_State/Actions/index";
+import { loadData, loadFilteredData } from "../../Redux_State/Actions/index";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const [books, setBooks] = useState([]);
+  
   useEffect(async () => {
     const data = await fetchAllBooks();
     dispatch(loadData(data));
+    dispatch(loadFilteredData(data));
   }, []);
   return (
     <Base>
-      <Books books={books} />
+      <Books />
     </Base>
   );
 };

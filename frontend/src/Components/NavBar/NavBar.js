@@ -2,16 +2,24 @@ import React, { useRef, useState, useEffect } from "react";
 import { Link, withRouter, Redirect } from "react-router-dom";
 import "./NavBar.css";
 import { signout, authenticate, isAuthenticated } from "../../API/Auth";
+import { searchData } from "../../Redux_State/Actions";
+import { useDispatch } from "react-redux";
+
 
 const NavBar = () => {
   const [redirect, setRedirect] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {}, [redirect]);
   const performRedirect = () => {
     if (redirect) {
       return <Redirect to="/" />;
     }
   };
+  const inptField = useRef()
+  const searchForData = () => {
+    const data = inptField.current.value;
+    dispatch(searchData(data));
+  }
   return (
     <div className="nav-bar">
       <Link to="/" className="left-side">
@@ -30,8 +38,8 @@ const NavBar = () => {
         )}
         {isAuthenticated() && <Link to="/profile">Profile</Link>}
         <div>
-          <input placeholder="Search" />
-          <button>Search</button>
+          <input placeholder="Search" ref={inptField} />
+          <button className="btn btn-primary" style={{width: "100px"}} onClick={() => searchForData()}>Search</button>
         </div>
       </div>
       {isAuthenticated() && (
